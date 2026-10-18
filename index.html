@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>商家利润管家｜本地版</title>
+<meta name="theme-color" content="#111a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="利润管家">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--text:#172033;--muted:#6d778b;--line:#e7ebf2;--blue:#315efb;--blue2:#edf2ff;--green:#16845b;--red:#c43e4d;--shadow:0 8px 28px rgba(27,39,70,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:9px 13px;background:var(--blue);color:white;font-weight:600}button.secondary{background:#f0f3f8;color:#27324a}button.danger{background:#fff0f0;color:var(--red)}button.small{padding:5px 9px;font-size:12px}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}.sidebar{background:#111a2e;color:#dbe3f6;padding:24px 15px}.brand{font-size:18px;font-weight:800;color:#fff;padding:0 10px 22px}.brand small{display:block;color:#9ba9c7;font-size:11px;font-weight:500;margin-top:4px}.nav{display:grid;gap:6px}.nav button{background:transparent;color:#b8c4dc;text-align:left;font-weight:500;padding:12px;border-radius:10px}.nav button.active,.nav button:hover{background:#243353;color:#fff}.sidebar-note{margin:28px 8px 0;padding:12px;border:1px solid #34415e;border-radius:10px;color:#aebbd5;font-size:12px}
+main{padding:28px;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.eyebrow{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.08em}.top h1{margin:3px 0;font-size:26px}.sub{color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.metric,.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:var(--shadow)}.metric .label{color:var(--muted);font-size:12px}.metric .value{font-size:25px;font-weight:800;margin:8px 0 2px;letter-spacing:-.03em}.metric .hint{font-size:12px;color:var(--muted)}.green{color:var(--green)}.red{color:var(--red)}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}.panel{margin-bottom:16px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.panel h2{font-size:16px;margin:0}.panel p{margin:4px 0;color:var(--muted);font-size:12px}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.quick button{padding:15px 10px;text-align:left;background:var(--blue2);color:#2448ca}.quick span{display:block;font-size:12px;font-weight:400;color:#6475ad;margin-top:4px}
+.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap}th{font-size:12px;color:var(--muted);font-weight:600;background:#fafbfe}td{font-size:13px}.pill{display:inline-block;border-radius:30px;padding:3px 8px;background:#eef2f8;color:#59657a;font-size:11px}.pill.ok{background:#e7f8f0;color:#16845b}.empty{padding:26px;text-align:center;color:var(--muted)}
+.section{display:none}.section.active{display:block}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{max-width:240px}
+input,select,textarea{width:100%;border:1px solid #dbe1eb;border-radius:8px;padding:10px;background:white;color:var(--text);outline:none}input:focus,select:focus,textarea:focus{border-color:#829bff;box-shadow:0 0 0 3px #315efb17}label{display:block;font-size:12px;font-weight:700;color:#4d5870;margin-bottom:6px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field.full{grid-column:1/-1}.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}.modal{display:none;position:fixed;inset:0;background:#0c142a77;z-index:10;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.dialog{background:#fff;border-radius:16px;padding:24px;width:min(720px,100%);max-height:90vh;overflow:auto;box-shadow:0 20px 70px #101b3540}.dialog h2{margin:0 0 4px}.close{float:right;background:#f0f3f8;color:#25314a}.notice{background:#fff8e6;border:1px solid #f4e2aa;color:#765a16;padding:12px 14px;border-radius:10px;font-size:12px;margin-bottom:16px}.barline{height:8px;border-radius:20px;background:#edf0f6;overflow:hidden;margin:8px 0}.barline span{display:block;height:100%;background:var(--blue);border-radius:20px}.footer{color:var(--muted);font-size:11px;text-align:center;padding:10px}
+@media(max-width:950px){.app{grid-template-columns:1fr}.sidebar{padding:12px}.brand{padding:4px 8px 12px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 12px}.sidebar-note{display:none}main{padding:18px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}}
+@media(max-width:560px){main{padding:12px}.top{align-items:flex-start;flex-direction:column}.top h1{font-size:22px}.cards{gap:8px}.metric{padding:13px}.metric .value{font-size:20px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.quick{grid-template-columns:1fr}}
+</style>
+<style>
+/* ===== 手机端（≤600px），桌面端不受影响 ===== */
+.m-summary{display:none}
+@media(max-width:600px){
+html{-webkit-text-size-adjust:100%}
+.app{overflow-x:clip;grid-template-columns:minmax(0,1fr)}
+.sidebar,main{min-width:0;max-width:100vw}
+body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+.sidebar{position:sticky;top:0;z-index:8;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;box-shadow:0 4px 14px rgba(8,14,30,.25)}
+.brand{font-size:15px;padding:0 4px 6px}.brand small{display:none}
+.nav{gap:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -10px;padding:0 10px}.nav::-webkit-scrollbar{display:none}
+.nav button{min-height:40px;padding:8px 12px;font-size:14px}
+.m-summary{display:grid;grid-template-columns:1.2fr 1.2fr .8fr;gap:6px;margin-top:8px}
+.m-summary div{background:#1b2742;border-radius:9px;padding:6px 8px;min-width:0}
+.m-summary span{display:block;font-size:10.5px;color:#9ba9c7}
+.m-summary b{display:block;font-size:14px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-summary b.green{color:#4ade80}.m-summary b.red{color:#f87171}
+main{padding:12px 12px calc(16px + env(safe-area-inset-bottom))}
+.top{gap:8px;margin-bottom:12px}.top h1{font-size:21px}.eyebrow{font-size:11px}
+.top .actions{width:100%}.top .actions button{flex:1}
+.notice{font-size:12px;padding:10px 12px;margin-bottom:12px}
+button{min-height:42px}button.small{min-height:34px;padding:6px 12px;font-size:13px}
+.metric .value{font-size:19px;word-break:break-all}
+.panel{padding:14px;border-radius:13px}
+.panel-head{flex-wrap:wrap}
+.toolbar input,.toolbar select{max-width:none;flex:1 1 140px}
+input,select,textarea{font-size:16px;min-height:44px}
+textarea{min-height:80px}
+.quick button{padding:13px 12px}
+/* 表格 → 卡片 */
+.table-wrap,#recentSales{overflow:visible}
+.table-wrap table,#recentSales table{min-width:0;display:block}
+.table-wrap thead,#recentSales thead{display:none}
+.table-wrap tbody,#recentSales tbody{display:block}
+.table-wrap tr,#recentSales tr{display:block;border:1px solid var(--line);border-radius:12px;padding:6px 12px;margin-bottom:10px;background:#fff}
+.table-wrap td,#recentSales td{display:block;overflow:hidden;min-height:34px;padding:7px 0;border-bottom:1px dashed var(--line);white-space:normal;text-align:right;font-size:14px;word-break:break-word}
+.table-wrap td:last-child,#recentSales td:last-child{border-bottom:0}
+.table-wrap td::before,#recentSales td::before{content:attr(data-label);float:left;max-width:42%;margin-right:12px;text-align:left;color:var(--muted);font-size:12px;font-weight:600;padding-top:1px}
+.table-wrap td:first-child,#recentSales td:first-child{font-size:15px}
+.table-wrap td.m-actions,#recentSales td.m-actions{padding-top:9px}.table-wrap td.m-actions::before,#recentSales td.m-actions::before{content:none}
+.table-wrap .panel,#recentSales .panel,.panel .table-wrap{margin:0}
+#batchTable,#salesTable,#expenseTable,#recentSales,#productReport{margin:0}
+.section>.panel:has(>.table-wrap){background:transparent;border:0;box-shadow:none;padding:0}
+/* 弹窗 → 底部抽屉 */
+.modal{align-items:flex-end;padding:0}
+.dialog{width:100%;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:92vh;-webkit-overflow-scrolling:touch}
+.form-grid{gap:10px}
+.form-actions{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));background:#fff;padding:10px 0 4px;margin-top:12px}
+.form-actions button{flex:1}
+.close{min-height:36px;padding:6px 12px}
+.grid2{gap:0}
+}
+</style></head>
+<body>
+<div class="app">
+<aside class="sidebar"><div class="brand">▦ 商家利润管家<small>LOCAL · 进销存与利润核算</small></div>
+<nav class="nav">
+<button class="active" data-page="dashboard">▦　经营总览</button>
+<button data-page="batches">▤　进货批次</button>
+<button data-page="sales">↗　销售订单</button>
+<button data-page="expenses">￥　费用记录</button>
+<button data-page="reports">▥　利润报表</button>
+<button data-page="backup">⚙　数据与备份</button>
+</nav>
+<div class="sidebar-note">🔒 本地优先<br>数据默认保存在当前浏览器；开启「数据与备份 → 多设备同步」后，也会保存到你自己的 GitHub 私密 Gist。请定期导出备份。</div></aside>
+<main>
+<header class="top"><div><div class="eyebrow">DOUBLE 11 · SELLER DESK</div><h1 id="pageTitle">经营总览</h1><div class="sub" id="pageSub">把每一批货、每一笔订单的账算清楚。</div></div><div class="actions"><button class="secondary" onclick="exportCSV()">导出 CSV</button><button onclick="openBatch()">＋ 新增进货批次</button></div></header>
+<div class="notice">试用提醒：请先录入进货批次，再登记销售订单并关联批次。当前版本是本地优先原型，暂不自动同步淘宝、抖音、拼多多等平台订单。</div>
+<section class="section active" id="dashboard">
+<div class="cards">
+<div class="metric"><div class="label">累计销售收入</div><div class="value" id="mRevenue">¥0.00</div><div class="hint">按已登记订单计算</div></div>
+<div class="metric"><div class="label">已实现利润（估算）</div><div class="value green" id="mProfit">¥0.00</div><div class="hint">收入 − 已售成本 − 订单费用</div></div>
+<div class="metric"><div class="label">库存成本价值</div><div class="value" id="mStock">¥0.00</div><div class="hint">按批次剩余数量估算</div></div>
+<div class="metric"><div class="label">库存剩余件数</div><div class="value" id="mQty">0</div><div class="hint" id="mBatchCount">0 个进货批次</div></div>
+</div>
+<div class="grid2"><div class="panel"><div class="panel-head"><div><h2>快速记一笔</h2><p>常用操作放在手边</p></div></div><div class="quick"><button onclick="openBatch()">＋ 记录进货<span>供应商、数量、采购成本</span></button><button onclick="openSale()">↗ 记录销售<span>售价、数量、订单费用</span></button><button onclick="openExpense()">￥ 记录费用<span>广告、仓储及其他支出</span></button></div></div>
+<div class="panel"><div class="panel-head"><div><h2>库存概况</h2><p>按批次查看剩余库存成本</p></div><button class="secondary small" onclick="navigate('batches')">查看全部</button></div><div id="stockSummary"></div></div></div>
+<div class="panel"><div class="panel-head"><div><h2>最近销售订单</h2><button class="secondary small" onclick="navigate('sales')">查看全部</button></div></div><div id="recentSales"></div></div>
+</section>
+<section class="section" id="batches"><div class="panel-head"><div><h2>进货批次</h2><p>每一批单独核算成本，可记录拿货渠道与供应商。</p></div><button onclick="openBatch()">＋ 新增批次</button></div><div class="toolbar"><input id="batchSearch" placeholder="搜索商品 / 供应商 / 批次号" oninput="renderBatches()"><select id="batchFilter" onchange="renderBatches()"><option value="all">全部批次</option><option value="stock">有库存</option><option value="sold">已售罄</option></select></div><div class="panel"><div class="table-wrap" id="batchTable"></div></div></section>
+<section class="section" id="sales"><div class="panel-head"><div><h2>销售订单</h2><p>销售收入扣除商品成本、平台费用、物流费用及退款。</p></div><button onclick="openSale()">＋ 新增销售</button></div><div class="toolbar"><input id="saleSearch" placeholder="搜索订单号 / 商品" oninput="renderSales()"><select id="saleStatus" onchange="renderSales()"><option value="all">全部状态</option><option>已完成</option><option>待发货</option><option>已退款</option><option>已取消</option></select></div><div class="panel"><div class="table-wrap" id="salesTable"></div></div></section>
+<section class="section" id="expenses"><div class="panel-head"><div><h2>费用记录</h2><p>记录不直接归属于某笔订单的广告、仓储、软件等经营费用。</p></div><button onclick="openExpense()">＋ 新增费用</button></div><div class="panel"><div class="table-wrap" id="expenseTable"></div></div></section>
+<section class="section" id="reports"><div class="cards"><div class="metric"><div class="label">销售收入</div><div class="value" id="rRevenue">¥0</div></div><div class="metric"><div class="label">销售商品成本</div><div class="value" id="rCogs">¥0</div></div><div class="metric"><div class="label">订单费用</div><div class="value" id="rFees">¥0</div></div><div class="metric"><div class="label">经营费用</div><div class="value" id="rExpenses">¥0</div></div></div><div class="panel"><h2>利润拆解</h2><p>估算经营利润 = 销售收入 − 退款 − 销售商品成本 − 订单费用 − 经营费用。</p><div id="profitBreakdown"></div></div><div class="panel"><h2>按商品汇总</h2><div class="table-wrap" id="productReport"></div></div></section>
+<section class="section" id="backup"><div class="grid2"><div class="panel"><h2>数据备份与恢复</h2><p>建议每次大促结束后导出一次 JSON 备份。</p><div class="actions" style="margin-top:16px"><button onclick="exportJSON()">下载完整备份（JSON）</button><label style="display:inline-flex;align-items:center;gap:8px;margin:0;background:#f0f3f8;padding:9px 12px;border-radius:9px;cursor:pointer"><span>导入备份</span><input type="file" accept=".json,application/json" style="display:none" onchange="importJSON(event)"></label></div><p id="backupMsg"></p></div><div class="panel"><h2>数据管理</h2><p>清空操作不可撤销，请先导出备份。</p><button class="danger" onclick="clearData()">清空本地全部数据</button></div></div><div class="panel"><h2>本地存储说明</h2><p>数据默认保存在当前浏览器的 localStorage 中，清理浏览器数据、换设备或换浏览器可能导致数据丢失。开启上方「多设备同步」后，数据也会保存到你自己的 GitHub 私密 Gist，可在多台设备间同步。此版本没有多人协作。</p></div></section>
+<div class="footer">商家利润管家 · 本地版原型 · 请以实际结算账单与库存盘点为准</div>
+</main></div>
+<div class="modal" id="modal"><div class="dialog"><button class="close" onclick="closeModal()">✕</button><div id="modalContent"></div></div></div>
+<script>
+const KEY='merchant_profit_manager_v1';
+let db=loadDB(), editing=null;
+function loadDB(){try{return JSON.parse(localStorage.getItem(KEY))||{batches:[],sales:[],expenses:[]}}catch(e){return{batches:[],sales:[],expenses:[]}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function id(){return 'ID'+Date.now().toString(36).toUpperCase()+Math.random().toString(36).slice(2,5).toUpperCase()}
+function money(n){return '¥'+(Number(n)||0).toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function num(v){return Number(v)||0}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function today(){return new Date().toISOString().slice(0,10)}
+function batchCost(b){return num(b.qty)*num(b.unit)+num(b.freight)+num(b.other)}
+function unitCost(b){return num(b.qty)>0?batchCost(b)/num(b.qty):0}
+function soldQty(batchId){return db.sales.filter(s=>s.batchId===batchId&&!['已取消','已退款'].includes(s.status)).reduce((a,s)=>a+num(s.qty),0)}
+function saleMath(s){const b=db.batches.find(x=>x.id===s.batchId);const revenue=num(s.price)*num(s.qty);const refund=num(s.refund);const cogs=unitCost(b||{qty:0})*num(s.qty);const fees=num(s.platformFee)+num(s.shipping)+num(s.otherFee);return{revenue,refund,cogs,fees,profit:revenue-refund-cogs-fees}}
+function totals(){let revenue=0,refund=0,cogs=0,fees=0;db.sales.forEach(s=>{if(['已取消','已退款'].includes(s.status))return;let m=saleMath(s);revenue+=m.revenue;refund+=m.refund;cogs+=m.cogs;fees+=m.fees});let expenses=db.expenses.reduce((a,e)=>a+num(e.amount),0);let stock=0,qty=0;db.batches.forEach(b=>{let rem=Math.max(0,num(b.qty)-soldQty(b.id));stock+=rem*unitCost(b);qty+=rem});return{revenue,refund,cogs,fees,expenses,profit:revenue-refund-cogs-fees-expenses,stock,qty}}
+const titles={dashboard:['经营总览','把每一批货、每一笔订单的账算清楚。'],batches:['进货批次','追踪每一批货的采购成本、来源和库存。'],sales:['销售订单','记录实际成交、订单费用、退款和批次归属。'],expenses:['费用记录','把广告、仓储、软件等经营支出记完整。'],reports:['利润报表','从收入、商品成本、订单费用和经营费用拆解利润。'],backup:['数据与备份','本地保存、导出和恢复你的经营账本。']};
+function navigate(p){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));document.getElementById('pageTitle').textContent=titles[p][0];document.getElementById('pageSub').textContent=titles[p][1];renderAll()}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open');editing=null}
+function field(label,name,value='',type='text',extra=''){return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" value="${esc(value)}" ${extra}></div>`}
+function openBatch(batchId=null){const b=batchId?db.batches.find(x=>x.id===batchId):{};editing=batchId?{type:'batch',id:batchId}:null;openModal(`<h2>${batchId?'编辑':'新增'}进货批次</h2><p>录入采购信息后，系统自动计算批次总成本与单件成本。</p><form id="batchForm"><div class="form-grid">
+${field('商品名称 *','product',b.product||'','text','required')}${field('SKU / 规格','sku',b.sku||'')}
+${field('批次编号','code',b.code||'')}${field('采购日期','date',b.date||today(),'date')}
+${field('进货数量 *','qty',b.qty??'','number','min="0.001" step="any" required')}${field('采购单价（元） *','unit',b.unit??'','number','min="0" step="0.01" required')}
+${field('采购运费（元）','freight',b.freight??0,'number','min="0" step="0.01"')}${field('其他入库费用（元）','other',b.other??0,'number','min="0" step="0.01"')}
+${field('供应商 / 联系人','supplier',b.supplier||'')}${field('拿货地点 / 渠道','source',b.source||'')}
+${field('联系方式 / 微信备注','contact',b.contact||'')}${field('付款状态','payment',b.payment||'未结清')}
+<div class="field full"><label>备注</label><textarea name="note" rows="3">${esc(b.note||'')}</textarea></div></div><div id="batchPreview" class="notice">填写数量和单价后自动预览成本。</div><div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">取消</button><button>保存批次</button></div></form>`);
+const f=document.getElementById('batchForm');const update=()=>{const d=new FormData(f),q=num(d.get('qty')),u=num(d.get('unit')),cost=q*u+num(d.get('freight'))+num(d.get('other'));document.getElementById('batchPreview').textContent=`批次总成本：${money(cost)}　｜　单件成本：${money(q?cost/q:0)}`};f.oninput=update;f.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));d.qty=num(d.qty);d.unit=num(d.unit);d.freight=num(d.freight);d.other=num(d.other);if(batchId){Object.assign(db.batches.find(x=>x.id===batchId),d)}else db.batches.unshift({...d,id:id(),createdAt:new Date().toISOString()});save();closeModal()};update()}
+function openSale(saleId=null){const s=saleId?db.sales.find(x=>x.id===saleId):{};editing=saleId?{type:'sale',id:saleId}:null;const opts=db.batches.map(b=>`<option value="${b.id}" ${s.batchId===b.id?'selected':''}>${esc(b.product)} · ${esc(b.code||b.id)}（单件成本 ${money(unitCost(b))}）</option>`).join('');openModal(`<h2>${saleId?'编辑':'新增'}销售订单</h2><p>选择对应进货批次，系统会按该批次的单件成本核算利润。</p>${db.batches.length?'': '<div class="notice">还没有进货批次，请先保存批次，再登记销售。</div>'}<form id="saleForm"><div class="form-grid">
+${field('订单号','orderNo',s.orderNo||'')}${field('销售日期','date',s.date||today(),'date')}
+<div class="field"><label>关联进货批次 *</label><select name="batchId" required><option value="">请选择批次</option>${opts}</select></div>
+${field('销售数量 *','qty',s.qty??1,'number','min="0.001" step="any" required')}${field('实际成交单价（元） *','price',s.price??'','number','min="0" step="0.01" required')}
+${field('平台佣金 / 手续费（元）','platformFee',s.platformFee??0,'number','min="0" step="0.01"')}${field('发货运费（元）','shipping',s.shipping??0,'number','min="0" step="0.01"')}
+${field('其他订单费用（元）','otherFee',s.otherFee??0,'number','min="0" step="0.01"')}${field('退款金额（元）','refund',s.refund??0,'number','min="0" step="0.01"')}
+<div class="field"><label>订单状态</label><select name="status">${['已完成','待发货','已退款','已取消'].map(x=>`<option ${s.status===x?'selected':''}>${x}</option>`).join('')}</select></div>
+<div class="field"><label>销售渠道</label><select name="channel">${['淘宝 / 天猫','抖音','拼多多','京东','微信 / 私域','线下','其他'].map(x=>`<option ${s.channel===x?'selected':''}>${x}</option>`).join('')}</select></div>
+<div class="field full"><label>备注</label><textarea name="note" rows="3">${esc(s.note||'')}</textarea></div></div><div id="salePreview" class="notice">填写信息后自动预览订单利润。</div><div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">取消</button><button ${db.batches.length?'':'disabled'}>保存订单</button></div></form>`);
+const f=document.getElementById('saleForm');const update=()=>{const d=new FormData(f),b=db.batches.find(x=>x.id===d.get('batchId'));const q=num(d.get('qty')),rev=q*num(d.get('price')),cogs=q*unitCost(b||{qty:0}),fees=num(d.get('platformFee'))+num(d.get('shipping'))+num(d.get('otherFee')),profit=rev-num(d.get('refund'))-cogs-fees;document.getElementById('salePreview').textContent=`销售收入 ${money(rev)} − 商品成本 ${money(cogs)} − 订单费用 ${money(fees)} − 退款 ${money(num(d.get('refund')))} = 订单利润 ${money(profit)}`};f.oninput=update;f.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));['qty','price','platformFee','shipping','otherFee','refund'].forEach(k=>d[k]=num(d[k]));if(saleId)Object.assign(db.sales.find(x=>x.id===saleId),d);else db.sales.unshift({...d,id:id(),createdAt:new Date().toISOString()});save();closeModal()};update()}
+function openExpense(expenseId=null){const e=expenseId?db.expenses.find(x=>x.id===expenseId):{};openModal(`<h2>${expenseId?'编辑':'新增'}经营费用</h2><p>例如广告投放、仓储、软件订阅、人工等非订单直接费用。</p><form id="expenseForm"><div class="form-grid">${field('费用名称 *','name',e.name||'','text','required')}${field('金额（元） *','amount',e.amount??'','number','min="0" step="0.01" required')}${field('日期','date',e.date||today(),'date')}<div class="field"><label>费用类别</label><select name="category">${['广告投放','仓储','人工','软件 / 工具','包装耗材','交通差旅','其他'].map(x=>`<option ${e.category===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field full"><label>备注 / 对应活动</label><textarea name="note" rows="3">${esc(e.note||'')}</textarea></div></div><div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">取消</button><button>保存费用</button></div></form>`);document.getElementById('expenseForm').onsubmit=ev=>{ev.preventDefault();const d=Object.fromEntries(new FormData(ev.target));d.amount=num(d.amount);if(expenseId)Object.assign(db.expenses.find(x=>x.id===expenseId),d);else db.expenses.unshift({...d,id:id()});save();closeModal()}}
+function del(type,itemId){if(!confirm('确定删除这条记录？删除后将重新计算相关利润。'))return;db[type]=db[type].filter(x=>x.id!==itemId);save()}
+function table(headers,rows){return rows.length?`<table><thead><tr>${headers.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`:'<div class="empty">还没有记录，点击上方按钮添加第一条。</div>'}
+function renderBatches(){const q=(document.getElementById('batchSearch')?.value||'').toLowerCase(),filter=document.getElementById('batchFilter')?.value||'all';const arr=db.batches.filter(b=>[b.product,b.supplier,b.code,b.source,b.sku].join(' ').toLowerCase().includes(q)).filter(b=>filter==='all'||(filter==='stock'?num(b.qty)-soldQty(b.id)>0:num(b.qty)-soldQty(b.id)<=0));document.getElementById('batchTable').innerHTML=table(['商品 / SKU','批次编号','供应商 / 来源','进货数量','已售 / 剩余','批次总成本','单件成本','操作'],arr.map(b=>`<tr><td><b>${esc(b.product)}</b><br><span class="sub">${esc(b.sku||'—')}</span></td><td>${esc(b.code||b.id)}</td><td>${esc(b.supplier||'—')}<br><span class="sub">${esc(b.source||'')}</span></td><td>${num(b.qty)}</td><td>${soldQty(b.id)} / ${Math.max(0,num(b.qty)-soldQty(b.id))}</td><td>${money(batchCost(b))}</td><td>${money(unitCost(b))}</td><td><button class="secondary small" onclick="openBatch('${b.id}')">编辑</button> <button class="danger small" onclick="del('batches','${b.id}')">删除</button></td></tr>`))}
+function renderSales(){const q=(document.getElementById('saleSearch')?.value||'').toLowerCase(),status=document.getElementById('saleStatus')?.value||'all';const arr=db.sales.filter(s=>{const b=db.batches.find(x=>x.id===s.batchId);return [s.orderNo,b?.product,s.channel].join(' ').toLowerCase().includes(q)}).filter(s=>status==='all'||s.status===status);document.getElementById('salesTable').innerHTML=table(['日期 / 订单号','商品 / 批次','数量','成交单价','收入','退款','订单利润','状态','操作'],arr.map(s=>{const b=db.batches.find(x=>x.id===s.batchId),m=saleMath(s);return `<tr><td>${esc(s.date)}<br><span class="sub">${esc(s.orderNo||s.id)}</span></td><td>${esc(b?.product||'批次已删除')}<br><span class="sub">${esc(s.channel||'')}</span></td><td>${num(s.qty)}</td><td>${money(s.price)}</td><td>${money(m.revenue)}</td><td>${money(m.refund)}</td><td class="${m.profit>=0?'green':'red'}">${money(m.profit)}</td><td><span class="pill ${s.status==='已完成'?'ok':''}">${esc(s.status||'已完成')}</span></td><td><button class="secondary small" onclick="openSale('${s.id}')">编辑</button> <button class="danger small" onclick="del('sales','${s.id}')">删除</button></td></tr>`}))}
+function renderExpenses(){document.getElementById('expenseTable').innerHTML=table(['日期','费用名称','类别','金额','备注','操作'],db.expenses.map(e=>`<tr><td>${esc(e.date)}</td><td>${esc(e.name)}</td><td>${esc(e.category)}</td><td>${money(e.amount)}</td><td>${esc(e.note||'—')}</td><td><button class="secondary small" onclick="openExpense('${e.id}')">编辑</button> <button class="danger small" onclick="del('expenses','${e.id}')">删除</button></td></tr>`))}
+function renderDashboard(){const t=totals();document.getElementById('mRevenue').textContent=money(t.revenue);document.getElementById('mProfit').textContent=money(t.profit);document.getElementById('mProfit').className='value '+(t.profit>=0?'green':'red');document.getElementById('mStock').textContent=money(t.stock);document.getElementById('mQty').textContent=t.qty.toLocaleString('zh-CN');document.getElementById('mBatchCount').textContent=db.batches.length+' 个进货批次';const stock=db.batches.filter(b=>num(b.qty)-soldQty(b.id)>0).slice(0,5);document.getElementById('stockSummary').innerHTML=stock.length?stock.map(b=>{let rem=Math.max(0,num(b.qty)-soldQty(b.id));return `<div style="margin:13px 0"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(b.product)}</b><span>${rem} 件</span></div><div class="barline"><span style="width:${Math.min(100,rem/Math.max(1,num(b.qty))*100)}%"></span></div><div class="sub">${money(rem*unitCost(b))} 库存成本 · ${esc(b.supplier||'未填供应商')}</div></div>`}).join(''):'<div class="empty">录入进货批次后，这里会显示库存。</div>';document.getElementById('recentSales').innerHTML=table(['日期','订单号','商品','收入','订单利润','状态'],db.sales.slice(0,6).map(s=>{let b=db.batches.find(x=>x.id===s.batchId),m=saleMath(s);return `<tr><td>${esc(s.date)}</td><td>${esc(s.orderNo||s.id)}</td><td>${esc(b?.product||'批次已删除')}</td><td>${money(m.revenue)}</td><td class="${m.profit>=0?'green':'red'}">${money(m.profit)}</td><td><span class="pill">${esc(s.status||'已完成')}</span></td></tr>`}))}
+function renderReports(){const t=totals();[['rRevenue',t.revenue],['rCogs',t.cogs],['rFees',t.fees],['rExpenses',t.expenses]].forEach(([id,v])=>document.getElementById(id).textContent=money(v));const items=[['销售收入',t.revenue],['退款',-t.refund],['已售商品成本',-t.cogs],['订单费用',-t.fees],['经营费用',-t.expenses],['估算经营利润',t.profit]];document.getElementById('profitBreakdown').innerHTML=items.map(([name,v])=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)"><span>${name}</span><b class="${v<0?'red':name.includes('利润')?'green':''}">${money(v)}</b></div>`).join('');let map={};db.sales.forEach(s=>{if(['已取消','已退款'].includes(s.status))return;let b=db.batches.find(x=>x.id===s.batchId);if(!b)return;let k=b.product;map[k]??={qty:0,revenue:0,cogs:0,fees:0,refund:0};let m=saleMath(s);map[k].qty+=num(s.qty);map[k].revenue+=m.revenue;map[k].cogs+=m.cogs;map[k].fees+=m.fees;map[k].refund+=m.refund});document.getElementById('productReport').innerHTML=table(['商品','销量','销售收入','商品成本','订单费用','估算利润','利润率'],Object.entries(map).map(([k,v])=>{let p=v.revenue-v.cogs-v.fees-v.refund;return `<tr><td>${esc(k)}</td><td>${v.qty}</td><td>${money(v.revenue)}</td><td>${money(v.cogs)}</td><td>${money(v.fees)}</td><td class="${p>=0?'green':'red'}">${money(p)}</td><td>${v.revenue?(p/v.revenue*100).toFixed(1)+'%':'—'}</td></tr>`}))}
+function renderAll(){renderDashboard();renderBatches();renderSales();renderExpenses();renderReports()}
+function exportJSON(){const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),...db},null,2)],{type:'application/json'});download(blob,'商家利润管家备份-'+today()+'.json');document.getElementById('backupMsg').textContent='备份文件已生成，请保存到安全位置。'}
+function exportCSV(){let lines=[['类型','日期','名称/订单号','批次/类别','数量','单价/金额','备注']];db.batches.forEach(b=>lines.push(['进货',b.date,b.product,b.code,b.qty,b.unit,b.note]));db.sales.forEach(s=>{let b=db.batches.find(x=>x.id===s.batchId);lines.push(['销售',s.date,s.orderNo,b?.product,s.qty,s.price,s.note])});db.expenses.forEach(e=>lines.push(['费用',e.date,e.name,e.category,'',e.amount,e.note]));const csv='\ufeff'+lines.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');download(new Blob([csv],{type:'text/csv;charset=utf-8;'}),'商家利润管家账目-'+today()+'.csv')}
+function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
+function importJSON(ev){const file=ev.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.batches)||!Array.isArray(d.sales)||!Array.isArray(d.expenses))throw Error();if(!confirm('导入将覆盖当前本地账本，建议先导出当前备份。确定继续？'))return;db={batches:d.batches,sales:d.sales,expenses:d.expenses};save();document.getElementById('backupMsg').textContent='备份导入成功。'}catch(e){alert('文件格式不正确，无法导入。')}};r.readAsText(file);ev.target.value=''}
+function clearData(){if(confirm('确定清空全部进货、销售和费用记录吗？此操作不可撤销。')&&confirm('再次确认：请确保已备份。')){db={batches:[],sales:[],expenses:[]};save();document.getElementById('backupMsg').textContent='本地数据已清空。'}}
+renderAll();
+</script>
+<script src="mobile.js"></script>
+<script src="sync.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW register failed', e)); });
+}
+</script>
+</body></html>
